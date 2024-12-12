@@ -1,0 +1,34 @@
+.side {
+  background-color: #004f4f;
+
+  &__wrapper {
+    padding: 16px;
+  }
+}
+
+.board {
+  padding: 16px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filter {
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}

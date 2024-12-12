@@ -1,0 +1,21 @@
+.card {
+  max-width: 1440px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 20px;
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+  }
+}

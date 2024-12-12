@@ -1,0 +1,38 @@
+<mat-card class="task-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>
+      <a [href]="url">
+        {{title}}
+      </a>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="task-card__content">
+    <ul class="task-card__list">
+      <li>
+        <span class="task-card__list-title">Исполнитель:</span>
+        <span> {{assignee}}</span>
+      </li>
+
+      <li>
+        <span class="task-card__list-title">Создатель:</span>
+        <span> {{creator}}</span>
+      </li>
+
+      <li>
+        <span class="task-card__list-title">Создано:</span>
+        <span> {{createdAt}}</span>
+      </li>
+      <li>
+        <span class="task-card__list-title">Изменено:</span>
+        <span> {{updatedAt}}</span>
+      </li>
+    </ul>
+  </mat-card-content>
+
+  <mat-card-footer class="task-card__footer">
+    <mat-chip-set>
+      <mat-chip>{{type}}</mat-chip>
+      <mat-chip>{{priority}}</mat-chip>
+    </mat-chip-set>
+  </mat-card-footer>
+</mat-card>

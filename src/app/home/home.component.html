@@ -1,0 +1,146 @@
+<mat-drawer-container class="container">
+  <mat-drawer class="side" mode="side" opened>
+    <div class="side__wrapper">
+      <h2 class="mat-title-large">Open</h2>
+
+      <a mat-flat-button href="/form">Добавить задачу</a>
+
+      <mat-list>
+        <app-task-item
+          *ngFor="let task of openTasks"
+          [title]="task.title"
+          [updatedAt]="task.updatedAt"
+          [type]="task.type"
+          [priority]="task.priority"
+          [id]="task.id"
+          (addToBoard)="addTaskToBoard(task)"
+        />
+      </mat-list>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <form class="filter" [formGroup]="filterForm" (ngSubmit)="filter()">
+      <mat-form-field>
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          <mat-option value="">--</mat-option>
+          <mat-option *ngFor="let priority of priorityList" [value]="priority">
+            {{ priority }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option value="">--</mat-option>
+          <mat-option *ngFor="let type of typeList" [value]="type">
+            {{ type }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Assignee</mat-label>
+        <mat-select formControlName="assignee">
+          <mat-option value="">--</mat-option>
+          <mat-option *ngFor="let assignee of assigneeList" [value]="assignee.name">
+            {{ assignee.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-flat-button type="submit">Применить</button>
+    </form>
+
+    <div class="board">
+      <mat-card
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="todoTasks"
+        [cdkDropListConnectedTo]="[progressList, doneList]"
+        (cdkDropListDropped)="drop($event)"
+        id="todo"
+        class="section"
+        appearance="raised"
+      >
+        <mat-card-header>
+          To Do
+        </mat-card-header>
+        <mat-card-content class="list">
+          <app-task-card
+            cdkDrag
+            *ngFor="let task of todoTasks"
+            [id]="task.id"
+            [title]="task.title"
+            [type]="task.type"
+            [priority]="task.priority"
+            [assignee]="task.assignee"
+            [creator]="task.creator"
+            [createdAt]="moment(task.createdAt).format('DD.MM.YYYY HH:mm')"
+            [updatedAt]="moment(task.updatedAt).format('DD.MM.YYYY HH:mm')"
+          />
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card
+        class="section"
+        appearance="raised"
+        cdkDropList
+        #progressList="cdkDropList"
+        [cdkDropListData]="inProgressTasks"
+        [cdkDropListConnectedTo]="[todoList, doneList]"
+        (cdkDropListDropped)="drop($event)"
+        id="progress"
+      >
+        <mat-card-header>
+          On Progress
+        </mat-card-header>
+        <mat-card-content class="list">
+          <app-task-card
+            cdkDrag
+            *ngFor="let task of inProgressTasks"
+            [id]="task.id"
+            [title]="task.title"
+            [type]="task.type"
+            [priority]="task.priority"
+            [assignee]="task.assignee"
+            [creator]="task.creator"
+            [createdAt]="moment(task.createdAt).format('DD.MM.YYYY HH:mm')"
+            [updatedAt]="moment(task.updatedAt).format('DD.MM.YYYY HH:mm')"
+          />
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card
+        class="section"
+        appearance="raised"
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="completedTasks"
+        [cdkDropListConnectedTo]="[todoList, progressList]"
+        (cdkDropListDropped)="drop($event)"
+        id="done"
+      >
+        <mat-card-header>
+          Done
+        </mat-card-header>
+        <mat-card-content class="list">
+          <app-task-card
+            cdkDrag
+            *ngFor="let task of completedTasks"
+            [id]="task.id"
+            [title]="task.title"
+            [type]="task.type"
+            [priority]="task.priority"
+            [assignee]="task.assignee"
+            [creator]="task.creator"
+            [createdAt]="moment(task.createdAt).format('DD.MM.YYYY HH:mm')"
+            [updatedAt]="moment(task.updatedAt).format('DD.MM.YYYY HH:mm')"
+          />
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

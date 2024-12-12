@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="container__wrapper">
+    <mat-card class="card">
+      <mat-card-content>
+        <form class="form" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+          <div class="form__left">
+            <mat-form-field>
+              <input matInput placeholder="Заголовок" formControlName="title">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Description</mat-label>
+              <textarea matInput placeholder="Описание" formControlName="description"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form__right">
+            <mat-form-field>
+              <mat-label>Type</mat-label>
+              <mat-select formControlName="type">
+                <mat-option *ngFor="let type of typeList" [value]="type">
+                  {{ type }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Priority</mat-label>
+              <mat-select formControlName="priority">
+                <mat-option *ngFor="let priority of priorityList" [value]="priority">
+                  {{ priority }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Assignee</mat-label>
+              <mat-select formControlName="assignee">
+                <mat-option *ngFor="let user of users" [value]="user.name">
+                  {{ user.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Creator</mat-label>
+              <mat-select formControlName="creator">
+                <mat-option *ngFor="let user of users" [value]="user.name">
+                  {{ user.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-list>
+              <mat-list-item>Создано: {{taskDate?.created}}</mat-list-item>
+              <mat-list-item>Изменено: {{taskDate?.updated}}</mat-list-item>
+            </mat-list>
+
+            <button mat-flat-button type="submit">Сохранить</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
